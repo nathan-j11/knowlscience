@@ -1,35 +1,39 @@
 import React from "react";
-import ApiHandler from "../api/apiHandler";
+//import ApiHandler from "../api/apiHandler";
 import { Link } from "react-router-dom";
-const api = new ApiHandler();
+//import ApiHandler from "../../../../../React-complete/dev-squad-911-m3-crud/client/src/api/apiHandler";
+import axios from "axios";
 
-class TableBurgers extends React.Component {
+
+
+class TableCourses extends React.Component {
   state = {
     courses: [],
   };
 
-  // getAllBurgers() {
-  //   api
-  //     .get("/api/burgers")
-  //     .then((apiResponse) => {
-  //       console.log(apiResponse);
-  //       this.setState({
-  //         burgers: apiResponse.data,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  componentDidMount() {
-    // this.getAllCourses();
-    api
-      .get("/api/courses")
+   
+  getAllCourses = () =>{
+    axios
+      .get("http://localhost:4000/api/course")
       .then((apiResponse) => {
         console.log(apiResponse);
         this.setState({
-          burgers: apiResponse.data,
+          courses: apiResponse.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  componentDidMount() {
+      this.getAllCourses();
+    axios
+      .post("/http://localhost:4000/api/course")
+      .then((apiResponse) => {
+        console.log(apiResponse);
+        this.setState({
+          courses: apiResponse.data,
         });
       })
       .catch((error) => {
@@ -38,18 +42,18 @@ class TableBurgers extends React.Component {
   }
 
   handleDelete = (id) => {
-    api
-      .delete(`/api/courses/${id}`)
+    axios
+      .delete(`http://localhost:4000/api/course/${id}`)
       .then((apiResponse) => {
-        // this.getAllCourses();
-        this.setState({
-          burgers: this.state.courses.filter((course) => course._id !== id),
-        });
-      })
-      .catch((error) => {
+         this.getAllCourses();
+         this.setState({
+           courses: this.state.courses.filter((course) => course._id !== id),
+         });
+       })
+       .catch((error) => {
         console.log(error);
-      });
-  };
+       });
+   };
 
   render() {
     return (
@@ -69,15 +73,15 @@ class TableBurgers extends React.Component {
               <tr key={course._id}>
                 <td>{course.name}</td>
                 <td>{course.description}</td>
-                <td>
+                {/* <td>
                   <img
                     style={{ width: 48, height: 48 }}
                     src={course.image}
                     alt={course.name}
                   />
-                </td>
+                </td> */}
                 <td>
-                  <Link to={`/admin/course-form/${course._id}/edit`}>
+                  <Link to={`/admin/formcourse/${course._id}/edit`}>
                     <button>Edit</button>
                   </Link>
                 </td>

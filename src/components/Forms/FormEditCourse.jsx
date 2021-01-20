@@ -1,11 +1,13 @@
 import React from "react";
 
-// import axios from "axios";
-import ApiHandler from "../api/apiHandler";
+import axios from "axios";
+//import ApiHandler from "../api/apiHandler";
 
-const api = new ApiHandler();
 
-class FromCourse extends React.Component {
+
+
+
+class FormCourse extends React.Component {
   state = {
     name: "",
     description: "",
@@ -15,14 +17,14 @@ class FromCourse extends React.Component {
   componentDidMount() {
     const courseId = this.props.match.params.id;
 
-    api
-      .get("/api/courses/" + courseId)
+    axios
+      .get("http://localhost:4000/api/course", + courseId)
       .then((apiResponse) => {
-        // console.log(apiResponse);
+         console.log(apiResponse);
         const course = apiResponse.data;
         this.setState({
           name: course.name,
-          description: course.price,
+          description: course.description,
           image: course.image,
         });
       })
@@ -42,17 +44,17 @@ class FromCourse extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const burgerId = this.props.match.params.id;
+    const courseId = this.props.match.params.id;
 
-    api
-      .patch("/api/courses/" + courseId, {
+    axios
+      .patch("http://localhost:4000/api/course", + courseId, {
         name: this.state.name,
         description: this.state.description,
         image: this.state.image,
       })
       .then((apiResponse) => {
         this.props.history.push("/admin/dashboard");
-        // console.log(apiResponse);
+         console.log(apiResponse);
       })
       .catch((err) => {
         console.log(err);
@@ -89,7 +91,7 @@ class FromCourse extends React.Component {
           <label htmlFor="">Description</label>
           <input
             onChange={this.handleChange}
-            value={this.state.price}
+            value={this.state.description}
             type="text"
             name="description"
           />
@@ -109,4 +111,4 @@ class FromCourse extends React.Component {
   }
 }
 
-export default FromCourse;
+export default FormCourse;

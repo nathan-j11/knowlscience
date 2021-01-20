@@ -1,11 +1,10 @@
 import React from "react";
+import axios from "axios";
+//import ApiHandler from "../../api/apiHandler";
 
-// import axios from "axios";
-import ApiHandler from "../../api/apiHandler";
 
-const api = new ApiHandler();
 
-class FromCourse extends React.Component {
+class FormCourse extends React.Component {
   state = {
     name: "",
     description: "",
@@ -24,32 +23,33 @@ class FromCourse extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    api
-      .post("/api/courses", {
+  //   axios
+  //     .post("/api/course", {
+  //       name: this.state.name,
+  //       description: this.state.description,
+  //       image: this.state.image,
+  //     })
+
+  //     .then((apiResponse) => {
+  //       console.log(apiResponse);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+    axios
+      .post("http://localhost:4000/api/course", {
         name: this.state.name,
-        description: this.state.price,
+        description: this.state.description,
         image: this.state.image,
       })
-
       .then((apiResponse) => {
         console.log(apiResponse);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // axios
-    //   .post("http://localhost:4000/api/courses", {
-    //     name: this.state.name,
-    //     description: this.state.price,
-    //     image: this.state.image,
-    //   })
-    //   .then((apiResponse) => {
-    //     console.log(apiResponse);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   render() {
@@ -73,4 +73,4 @@ class FromCourse extends React.Component {
   }
 }
 
-export default FromCourse;
+export default FormCourse;

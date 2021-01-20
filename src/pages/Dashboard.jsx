@@ -1,7 +1,7 @@
 import React from "react";
-import TableCourses from "../Components/TableCourses";
+import TableCourses from "../components/TableCourses";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <div>
       <h1>Welcome to the Dashboard !</h1>

@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: process.env.REACT_APP_BACKEND_URL ,
   withCredentials: true, // Cookie is sent to client when using this service. (used for session)
 });
+
 
 function errorHandler(error) {
   if (error.response.data) {
@@ -44,10 +45,34 @@ export default {
       .catch(errorHandler);
   },
 
-  getItems() {
-    return service
-      .get("/api/items")
-      .then((res) => res.data)
-      .catch(errorHandler);
-  },
+  // getCourses() {
+  //   return service
+  //     .get("/api/course")
+  //     .then((res) => res.data)
+  //     .catch(errorHandler);
+  // },
+
+  // removeCourse(courseId) {
+  //   return service
+  //   .delete(`/course/${courseId}`)
+  //   .then((res) => res.data)
+  //   .catch(errorHandler);
+  // },
+
+  // updateCourse(itemId, data) {
+  //   return service
+  //     .patch(`/course/${itemId}`, data)
+  //     .then((res) => res.data)
+  //     .catch(errorHandler);
+  // },
+
+  // addCourse(data) {
+  //   return service
+  //     .post("/course", data)
+  //     .then((res) => res.data)
+  //     .catch(errorHandler);
+  // },
+
+
 };
+
